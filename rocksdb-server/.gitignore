@@ -1,0 +1,17 @@
+# OS generated files
+.DS_Store
+
+# Maven build target folder
+target/
+dist/
+log/
+data/
+
+# IntelliJ
+.idea/
+*.iml
+
+# Eclipse
+.classpath
+.project
+.settings/

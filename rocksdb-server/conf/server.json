@@ -1,0 +1,18 @@
+{
+  "node": {
+    "host": "0.0.0.0",
+    "port": 4080
+  },
+  "auth": {
+    "enabled": false,
+    "username": "admin",
+    "password": "admin"
+  },
+  "db": {
+    "maxOpenFiles": 256,
+    "blockSize": 4096,
+    "rowCache": 33554432,
+    "writeBufferSize": 4194304
+  },
+  "dataDir": "/data"
+}
