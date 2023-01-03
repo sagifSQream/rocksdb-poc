@@ -8,6 +8,7 @@ pod:
   image: docker.io/sagifsqream/rocksdb-server-poc:0.1
   pullPolicy: Always  
   port: 4080
+  claimName: server-data
 
 service:
   name: server
@@ -19,4 +20,4 @@ storageClass:
   name: rocksdb-regionalpd-storageclass
 
 storageClaim:
-  name: server-data
+  name: server-data-claim
