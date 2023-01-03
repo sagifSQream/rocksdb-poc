@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.deploy.name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.pod.name }}
+  template:
+    metadata:
+      namespace: {{ .Values.namespace }}
+      labels:
+        app: {{ .Values.pod.name }}
+    spec:
+      containers:
+        - name: {{ .Values.pod.name }}
+          image: "{{ .Values.pod.image }}"
+          imagePullPolicy: {{ .Values.pod.pullPolicy }}
+          ports:
+            - containerPort:  {{ .Values.pod.port }}
+          volumeMounts:
+            - mountPath: "/data"
+              name: {{ .Values.storageClaim.name }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Values.storageClaim.name }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 50Gi
+  storageClassName: {{ .Values.storageClass.name }}

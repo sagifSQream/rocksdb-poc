@@ -1,0 +1,19 @@
+replicaCount: 1
+
+namespace: rocksdb-poc
+deploy:
+  name: server
+pod:
+  name: server
+  image: docker.io/sagifsqream/rocksdb-server-poc:0.1
+  pullPolicy: Always  
+  port: 4080
+
+service:
+  name: server
+  type: ClusterIP
+  port: 4080
+
+  
+storageClass:
+  name: {{ .Values.storageClass.name }}
