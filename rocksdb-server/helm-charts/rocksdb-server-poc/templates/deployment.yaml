@@ -15,7 +15,7 @@ spec:
         app: {{ .Values.pod.name }}
     spec:
       volumes:
-        - name: {{ .Values.pod.claimName }}
+        - name: {{ .Values.pod.volumeName }}
           persistentVolumeClaim:
             claimName: {{ .Values.storageClaim.name }}
         
@@ -27,7 +27,7 @@ spec:
             - containerPort:  {{ .Values.pod.port }}
           volumeMounts:
             - mountPath: "/data"
-              name: {{ .Values.pod.claimName }}
+              name: {{ .Values.pod.volumeName }}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -40,6 +40,6 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 50Gi
+      storage: 250Gi
   
   
