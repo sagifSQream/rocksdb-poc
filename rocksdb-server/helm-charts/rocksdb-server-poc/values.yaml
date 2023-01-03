@@ -16,4 +16,7 @@ service:
 
   
 storageClass:
-  name: {{ .Values.storageClass.name }}
+  name: rocksdb-regionalpd-storageclass
+
+storageClaim:
+  name: server-data
