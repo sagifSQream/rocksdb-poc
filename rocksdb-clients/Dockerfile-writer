@@ -1,0 +1,7 @@
+FROM docker.io/python:3
+
+WORKDIR /app
+COPY writer-rocksdb.py requirenments.txt ./
+RUN pip install -r requirenments.txt
+
+CMD ["writer-rockdb.py"]
