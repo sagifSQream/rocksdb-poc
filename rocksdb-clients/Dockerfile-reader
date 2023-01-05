@@ -2,5 +2,5 @@ FROM docker.io/python:3.11 AS PYTHON_BASE
 RUN pip3 install requests
 FROM PYTHON_BASE
 WORKDIR /app
-COPY writer-rocksdb.py ./
-CMD ["python","-u","/app/writer-rocksdb.py"]
+COPY reader-rocksdb.py ./
+CMD ["python","-u","/app/reader-rocksdb.py"]

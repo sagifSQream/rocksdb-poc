@@ -18,7 +18,7 @@ if not url.endswith('/put'):
 print('writing to server {0}'.format(url))
 
 
-def writeToDB(keys, values):
+def writeToDB(keys, values,startIndex):
     enc_keys = []
     enc_values = []
     for k in keys:
@@ -32,10 +32,13 @@ def writeToDB(keys, values):
         'keys': enc_keys,
         'values': enc_values
     }
+
+    print("starting to write bulk keys from {0}".format(startIndex))
     resp = requests.post(url, json=reqBody)
     if not resp.ok:
         print('failed to save keys: ', resp.json())
-
+    else:
+        print('wrote {0} keys from index {1}'.format(len(keys),startIndex))
 
 key_val = 0
 range_size = 100000
@@ -45,12 +48,15 @@ while True:
     for k in range(range_size):
         key_val += 1
         keys.append('k_{0}'.format(key_val))
-        values.append('v_{0}'.format(key_val * 0.1))
+        values.append('v_{0}_{1}'.format(key_val,time.time_ns()))
 
     try:
-        writeToDB(keys=keys, values=values)
-        print('wrote keys from {0} val'.format(key_val))
+        writeToDB(keys=keys, values=values,startIndex=key_val)
+        key_val=0  # restart writing
     except Exception as ex:
         print('Failed to write key from {0}. error:{1}'.format(range_size, ex))
         key_val -= range_size
         time.sleep(5)
+        exit (0)
+
+    
