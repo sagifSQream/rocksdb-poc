@@ -1,0 +1,48 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.clientReader.name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.clientReader.name }}
+  template:
+    metadata:
+      namespace: {{ .Values.namespace }}
+      labels:
+        app: {{ .Values.clientReader.name }}
+    spec:
+      containers:
+      - name: client-reader
+        image: '{{.Values.clientReader.imageRepo}}:{{ .Values.imageTag }}'
+        env:
+        - name: HOST
+          value: {{.Values.server}}
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.clientWriter.name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.clientWriter.name }}
+  template:
+    metadata:
+      namespace: {{ .Values.namespace }}
+      labels:
+        app: {{ .Values.clientWriter.name }}
+    spec:
+      containers:
+      - name: client-reader
+        image: '{{.Values.clientWriter.imageRepo}}:{{ .Values.imageTag }}'
+        env:
+        - name: HOST
+          value: {{.Values.server}}
+

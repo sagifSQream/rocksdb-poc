@@ -1,0 +1,11 @@
+namespace: rocksdb-poc
+imageTag: 0.6
+server: server.rocksdb-poc:4080
+clientReader:
+  name: c-reader
+  imageRepo: docker.io/sagifsqream/reader-rocksdb
+
+clientWriter:
+  name: c-writer
+  imageRepo: docker.io/sagifsqream/writer-rocksdb
+
