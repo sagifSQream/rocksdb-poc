@@ -14,11 +14,6 @@ spec:
       labels:
         app: {{ .Values.pod.name }}
     spec:
-      volumes:
-        - name: {{ .Values.pod.volumeName }}
-          persistentVolumeClaim:
-            claimName: {{ .Values.storageClaim.name }}
-        
       containers:
         - name: {{ .Values.pod.name }}
           image: "{{ .Values.pod.image }}"
@@ -28,6 +23,12 @@ spec:
           volumeMounts:
             - mountPath: "/data"
               name: {{ .Values.pod.volumeName }}
+      volumes:
+        - name: {{ .Values.pod.volumeName }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.storageClaim.name }}
+        
+      
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -35,11 +36,11 @@ metadata:
   name: {{ .Values.storageClaim.name }}
   namespace: {{ .Values.namespace }}
 spec:
-  storageClassName: {{ .Values.storageClass.name }}
+  # storageClassName: {{ .Values.storageClass.name }}
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 250Gi
+      storage: {{.Values.dataStorageSize}}
   
   

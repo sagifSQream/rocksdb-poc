@@ -1,6 +1,7 @@
 replicaCount: 1
 
 namespace: rocksdb-poc
+dataStorageSize: '250Gi'
 deploy:
   name: server
 pod:
